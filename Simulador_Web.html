@@ -1,0 +1,1848 @@
+<meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--Script contenedor de chart-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<!--Estilos-->
+<style>
+
+    .contenido-entrada
+    {
+        font-family: Helvetica;
+        font-size: 13px;
+        line-height: 1.84;
+        font-weight: 400;
+        text-rendering: optimizeLegibility !important;
+        background-attachment: scroll !important;
+        margin: 0!important;
+        padding: 0 !important;
+        background-color: #ffffff !important;
+    }
+
+    .contenedor-titulo
+    {
+        width: 100%;
+        height: 10%;
+        min-height: 1px;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .contenedor-titulo .titulo-seleccion
+    {
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        font-size: 24px;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 30px;
+        color: #192D40 !important;
+    }
+
+    .contenedor-subtitulo
+    {
+        width: 100%;
+        height: 10%;
+        min-height: 1px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .contenedor-subtitulo .titulo-seleccion
+    {
+        background-color: #192D40 !important;
+        margin: 0;
+        width: 50%;
+        height: 100%;
+        padding: 3px;
+        font-size: 16px;
+        font-weight: 300;
+        font-style: italic;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20px;
+        color: #ffffff !important;
+    }
+
+    .imagenFondoFiguraFiducia
+    {
+        display: none;
+    }
+    
+    .imagenFondoFiguraFiducia2
+    {
+        display: block;
+        width: 25%;
+        height: 100%;
+        min-height: 1px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .imagen-resposive
+    {
+        width: 25%;
+        height: 100%;
+        min-height: 1px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .imagenFondoFigura
+    {
+        width: 100%;
+        height: 100%;
+        min-height: 1px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .imagenFondo
+    {
+        width: 100%;
+        min-height: 1px;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+    .imagenFondoRetiro
+    {
+        width: 180px;
+        text-align: center;
+        vertical-align: middle;
+        margin: 0 auto;
+    }
+
+    .imagenFondoFiducia
+    {
+        width: 250px;
+        margin-top: 8px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .calificacion
+    {
+        width: 100%;
+        font-size: 12px;
+        font-weight: 700;
+        min-height: 1px;
+        margin: 0 auto; 
+        color: #192D40 !important;
+    }
+
+    .contenedor-calificacion
+    {
+        width: 25%;
+        height: 5%;
+        min-height: 1px;
+        margin: 0;
+    }
+    .contenedor-calificacion .titulo-seleccion
+    {
+        background-color: #ffffff !important;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        font-size: 12px;
+        font-weight: 300;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 20px;
+        color: #192D40 !important;
+    }
+
+    .contenedor-simulador
+    {
+        background-attachment: scroll !important;
+        background-color: #ffffff !important;
+        width: 100%;
+        min-height: 1px;
+        margin: 0;
+        display: flex;
+    }
+    
+    .contenedor-completo
+    {
+        width: 100%;
+        min-height: 1px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+    }
+
+    .grupo-simulador
+    {
+        margin: 0;
+        padding: 0;
+        width: 30%;
+        float:left;
+    }
+    
+    .grafico-simulador
+    {
+        margin:0 auto;
+        width: 70%;
+        display: inline-block;
+        position:relative;
+    }
+
+    .input-simulador
+    {
+        margin: 0%;
+        padding: 1% 10% 1% 10%;
+    }
+
+    .datos-simulador
+    {
+        width: 100%;
+    }
+    
+    .input-dato
+    {
+        font-weight: 400;
+        margin-top: 3vh;
+        letter-spacing: 0px;
+        margin-bottom: 3vh;
+        width: 100%;
+    }
+
+    .label-text
+    {
+        padding: 1;
+        color: #19401B;
+        text-align: left;
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 500;
+        width: 100%;
+    }
+
+    .label-text-result
+    {
+        background-color: #192D40;
+        padding: 1;
+        color: #ffffff;
+        text-align: left;
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 700;
+        width: 100%;
+    }
+
+    .tituloEdadHasta
+    {
+        padding: 1;
+        color: #192D40;
+        text-align: left;
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 400;
+        width: 100%;
+    }
+
+    .formulario
+    {
+        height: 3.66vh;
+        background-color: rgba(255,255,255,0.5);
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-radius: 15px;
+        padding: 2px 10px;
+        vertical-align: middle;
+        appearance: textfield;
+        cursor: text;
+        margin-top: 10px;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-align: start;
+        align-items: center;
+        cursor: default;
+        text-rendering: auto;        
+        width: 100%;
+        font-size: 15px;
+        font-weight: 400;
+        color: #333!important;
+    }
+
+    /*Segundo lado*/
+    .fondo-invertir
+    {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .resultados-cuadrados
+    {
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 3%;
+        padding: 0;
+        display: flex; 
+        justify-content: space-between;
+    }
+
+    .resultados-cuadrados-informacion1
+    {
+        height: 9.33vh;
+        background: #ffffff !important;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-radius: 10px;
+        align-items: center;
+        width: 20%;
+    }
+
+    .resultados-cuadrados-informacion2
+    {
+        height: 9.33vh;
+        background: #ffffff !important;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-radius: 15px;
+        align-items: center;
+        width: 20%;
+    }
+
+    .resultados-cuadrados-informacion3
+    {
+        height: 9.33vh;
+        background: #ffffff !important;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-radius: 15px;
+        align-items: center;
+        width: 20%;
+    }
+
+    .resultados-cuadrados-informacion4
+    {
+        height: 9.33vh;
+        background: #ffffff !important;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-radius: 15px;
+        align-items: center;
+        width: 20%;
+    }
+
+    .resultado-fondo-alto1
+    {
+        width: 100%;
+        height: 85%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-bajo1
+    {
+        background-color:  rgb(187, 187, 187) !important;
+        width: 100%;
+        height: 15%;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-bottom-left-radius: 200px;
+        border-bottom-right-radius: 200px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-fondo-alto2
+    {
+        width: 100%;
+        height: 85%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-bajo2
+    {
+        background-color:  #030303 !important;
+        width: 100%;
+        height: 15%;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-bottom-left-radius: 200px;
+        border-bottom-right-radius: 200px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-fondo-alto3
+    {
+        width: 100%;
+        height: 85%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-bajo3
+    {
+        background-color:  #19401B !important;
+        width: 100%;
+        height: 15%;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-bottom-left-radius: 200px;
+        border-bottom-right-radius: 200px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-fondo-alto4
+    {
+        width: 100%;
+        height: 85%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-bajo4
+    {
+        background-color:  #ffbd00 !important;
+        width: 100%;
+        height: 15%;
+        border: 1px solid rgb(187, 187, 187) !important;
+        border-bottom-left-radius: 200px;
+        border-bottom-right-radius: 200px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resultado-fondo-padd
+    {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+
+    .label-titulo-informacion-fondo
+    {
+        margin: 0 auto;
+        color:rgb(187, 187, 187) !important;
+        width: 90%;
+        margin-top: 3px;
+        height: 30%;
+        padding: 0;
+        text-align:center; 
+    }
+    
+    .titulo-mostrar
+    {
+        margin: 0;
+        color:rgb(133, 133, 133) !important;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        text-align:center; 
+        vertical-align: middle;
+        line-height: 13px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .resultado-titulo-informacion-fondo
+    {
+        margin: 0;
+        padding: 0;
+        color: #19401B !important;
+        width: 100%;
+        height: 70%;
+        text-align:center; 
+        vertical-align: middle;
+        line-height: 10px;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .resultado-catidad
+    {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        text-align:center; 
+        line-height: 50px;
+        font-size: 26px;
+        font-weight: 700;
+    }
+
+    .resultados-totales
+    {
+        background: #ffffff !important;
+        margin-top: 0px;
+        padding-top: 3.33vh;
+        width: 100%;
+        text-align: center;
+    }
+
+    .grafico-mostrar
+    {
+        background: #ffffff !important;
+        margin:0 auto;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        height: 30em;
+    }
+
+    .grafico-mostrar-chart
+    {
+        display: block;
+        background: #ffffff !important;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+    }
+
+    @media only screen and (max-width: 1280px) {
+
+        .contenedor-subtitulo .titulo-seleccion
+        {
+            font-size: 16px;
+        }
+
+        .input-dato
+        {
+            margin-top: 20px;
+            margin-bottom: 23px;
+        }
+
+        .label-text
+        {
+            font-size: 16px;
+            line-height: 18px;
+        }
+
+        .label-text-result
+        {
+            font-size: 16px;
+            line-height: 18px;
+        }
+
+        .formulario
+        {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .tituloEdadHasta
+        {
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .resultado-catidad
+        {
+            line-height: 60px;
+            font-size: 20px;
+        }
+    }
+
+    @media only screen and (max-width: 1150px) {
+        
+        .contenedor-subtitulo .titulo-seleccion
+        {
+            font-size: 14px;
+        }
+
+        .grupo-simulador
+        {
+            margin: 0;
+            padding: 0;
+            width: 30%;
+            float:left;
+        }
+        
+        .grafico-simulador
+        {
+            margin:0;
+            width: 70%;
+            display: inline-block;
+            position:relative;
+        }
+
+        .input-simulador
+        {
+            margin: 0%;
+            padding: 1% 10% 1% 10%;
+        }
+
+        .label-titulo
+        {
+            font-size: 17px;
+            line-height: 20px;
+        }
+
+        .input-dato
+        {
+            margin-top: 12px;
+            margin-bottom: 18px;
+        }
+
+        .label-text
+        {
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .label-text-result
+        {
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .formulario
+        {
+            height: 3.66vh;
+            margin-top: 6px;
+            font-size: 15px;
+        }
+
+        .imagenFondoRetiro
+        {
+            width: 150px;
+        }
+
+        .imagenFondoFiducia
+        {
+            width: 200px;
+        }
+
+        .imagenFondo
+        {
+            width: 100%;
+            min-height: 1px;
+            margin: 0 auto;
+        }
+
+        .calificacion
+        {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .contenedor-calificacion
+        {
+            width: 25%;
+            height: 5%;
+            min-height: 1px;
+            margin: 0;
+        }
+        .contenedor-calificacion .titulo-seleccion
+        {
+            background-color: #ffffff !important;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            font-size: 12px;
+            font-weight: 300;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 20px;
+            color: #192D40 !important;
+        }
+
+        .titulo-mostrar
+        {
+            line-height: 14px;
+            font-size: 10px;
+        }
+
+        .resultado-catidad
+        {
+            line-height: 60px;
+            font-size: 20px;
+        }
+    }
+
+    @media only screen and (max-width: 980px) {
+        
+        .contenedor-subtitulo
+        {
+            height: 8%;
+        }
+
+        .contenedor-subtitulo .titulo-seleccion
+        {
+            font-size: 11px;
+        }
+
+        .contenedor-calificacion
+        {
+            height: 4%;
+        }
+        .contenedor-calificacion .titulo-seleccion
+        {
+            font-size: 10px;
+        }
+
+        .grupo-simulador
+        {
+            margin: 0;
+            padding: 0;
+            width: 30%;
+            float:left;
+        }
+        
+        .grafico-simulador
+        {
+            margin:0;
+            width: 70%;
+            display: inline-block;
+            position:relative;
+        }
+
+        .input-simulador
+        {
+            margin: 0%;
+            padding: 1% 8% 1% 8%;
+        }
+
+        .label-titulo
+        {
+            font-size: 16px;
+            line-height: 18px;
+        }
+
+        .resultados-cuadrados
+        {
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+
+        .input-dato
+        {
+            margin-top: 11px;
+            margin-bottom: 11px;
+        }
+
+        .label-text
+        {
+            font-size: 12px;
+            line-height: 14px;
+        }
+        
+        .label-text-result
+        {
+            font-size: 12px;
+            line-height: 14px;
+        }
+
+        .formulario
+        {
+            height: 3vh;
+            margin-top: 6px;
+            font-size: 12px;
+        }
+        
+        .imagenFondoRetiro
+        {
+            width: 100px;
+        }
+
+        .imagenFondoFiducia
+        {
+            margin-top: 4px;
+            width: 150px;
+        }
+
+        .imagenFondo
+        {
+            width: 100%;
+            min-height: 1px;
+            margin: 0 auto;
+        }
+
+        .calificacion
+        {
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .contenedor-calificacion
+        {
+            width: 25%;
+            height: 5%;
+            min-height: 1px;
+            margin: 0;
+        }
+
+        .titulo-mostrar
+        {
+            line-height: 12px;
+            font-size: 10px;
+        }
+
+        .resultado-catidad
+        {
+            line-height: 60px;
+            font-size: 16px;
+        }
+    }
+
+
+    @media only screen and (max-width: 768px) {
+
+        .contenedor-titulo .titulo-seleccion
+        {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 24px;
+        }
+
+        .contenedor-subtitulo .titulo-seleccion
+        {
+            font-size: 11px;
+            line-height: 15px;
+            color: #ffffff !important;
+        }
+
+        .contenedor-simulador
+        {
+            display: block;
+        }
+
+        .contenedor-completo
+        {
+            width: 100%;
+            min-height: 1px;
+            margin-top: 10px;
+            margin-left: 0px;
+            margin-right: 0px;
+            display: block;
+        }
+        
+        .grupo-simulador
+        {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            float: none;
+            height: auto !important;
+        }
+        
+        .grafico-simulador
+        {
+            margin:0;
+            display: block;
+            width: 100%;
+            float: none;
+            height: auto !important;
+        }
+
+        .input-simulador
+        {
+            margin: 0%;
+            padding: 1% 8% 10% 8%;
+        }
+
+        .label-titulo
+        {
+            font-size: 25px;
+            line-height: 28px;
+        }
+       
+        .input-dato
+        {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .label-text
+        {
+            padding: 1;
+            font-size: 16px;
+            line-height: 18px;
+        }
+
+        .label-text-result
+        {
+            font-size: 16px;
+            line-height: 18px;
+        }
+
+        .formulario
+        {
+            height: 4.33vh;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .tituloEdadHasta
+        {
+            font-size: 16px;
+            line-height: 18px;
+        }
+
+        .resultados-cuadrados
+        {
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: -10%;
+        }
+                
+        .titulo-mostrar
+        {
+            line-height: 12px;
+            font-size: 9px;
+        }
+
+        .resultado-catidad
+        {
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .resultados-totales
+        {
+            margin: 0;
+            padding-top: 3.33vh;
+            width: 95%;
+            text-align: center;
+            position:relative;
+        }
+        
+    }
+
+    @media only screen and (max-width: 620px) {
+
+        .contenedor-subtitulo
+        {
+            width: 100%;
+            height: 20%;
+            min-height: 1px;
+            margin: 0;
+            display: block;
+            justify-content: center;
+        }
+
+        .contenedor-subtitulo .titulo-seleccion
+        {
+            width: 100%;
+            height: 50%;
+            font-size: 14px;
+            line-height: 18px;
+            align-content: center;
+            justify-content: center;
+            display: block;
+        }
+
+        .contenedor-calificacion
+        {
+            height: 3%;
+        }
+        .contenedor-calificacion .titulo-seleccion
+        {
+            font-size: 8px;
+        }
+
+        .resultados-cuadrados
+        {
+            margin-left: 4%;
+            margin-right: 4%;
+        }
+                
+        .titulo-mostrar
+        {
+            line-height: 10px;
+            font-size: 9px;
+        }
+
+        .imagen-resposive
+        {
+            width: 100%;
+            height: 50%;
+            min-height: 1px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .imagenFondoFigura
+        {
+            width: 49%;
+            height: 100%;
+            min-height: 1px;
+            display: block;
+            margin: 0;
+            float: left;
+            text-align: center;
+        }
+
+        .imagenFondoFiguraFiducia
+        {
+            width: 49%;
+            height: 100%;
+            min-height: 1px;
+            display: block;
+            float: right;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .imagenFondoFiguraFiducia2
+        {
+            display: none;
+        }
+
+        .imagenFondoRetiro
+        {
+            width: 150px;
+        }
+
+        .imagenFondoFiducia
+        {
+            width: 200px;
+        }
+
+        .imagenFondo
+        {
+            width: 100%;
+            min-height: 1px;
+            margin: 0;
+        }
+
+        .calificacion
+        {
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+
+        .resultado-catidad
+        {
+            line-height: 50px;
+            font-size: 15px;
+        }
+
+        .grafico-mostrar
+        {
+            margin:0 auto;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .grafico-mostrar-chart
+        {
+            width: 95%;
+        }
+
+        .resultados-totales
+        {
+            margin: 0;
+            padding-top: 3.33vh;
+            width: 95%;
+            text-align: center;
+            position:relative;
+        }
+
+
+    }
+
+    @media only screen and (max-width:480px){
+
+        .contenedor-subtitulo
+        {
+            width: 100%;
+            height: 20%;
+        }
+
+        .contenedor-subtitulo .titulo-seleccion
+        {
+            height: 50%;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .contenedor-calificacion
+        {
+            height: 1%;
+        }
+        .contenedor-calificacion .titulo-seleccion
+        {
+            font-size: 6px;
+        }
+       
+        .label-titulo
+        {
+            font-size: 18px;
+            line-height: 20px;
+        }
+       
+        .input-dato
+        {
+            margin-top: 8px;
+            margin-bottom: 8px;
+            width: 100%;
+        }
+
+        .label-text
+        {
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .label-text-result
+        {
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .formulario
+        {
+            height: 3.66vh;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+
+        .imagen-resposive
+        {
+            width: 100%;
+            height: 50%;
+            min-height: 1px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .imagenFondoFigura
+        {
+            width: 49%;
+            height: 100%;
+            min-height: 1px;
+            display: block;
+            margin: 0;
+            float: left;
+            text-align: center;
+        }
+
+        .imagenFondoFiguraFiducia
+        {
+            width: 49%;
+            height: 100%;
+            min-height: 1px;
+            display: block;
+            float: right;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .imagenFondoFiguraFiducia2
+        {
+            display: none;
+        }
+
+        .imagenFondoRetiro
+        {
+            width: 100px;
+        }
+
+        .imagenFondoFiducia
+        {
+            width: 150px;
+        }
+
+        .imagenFondo
+        {
+            width: 100%;
+            min-height: 1px;
+            margin: 0;
+        }
+
+        .calificacion
+        {
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .resultados-cuadrados
+        {
+            margin-left: 1%;
+            margin-right: 5%;
+        }
+                
+        .titulo-mostrar
+        {
+            line-height: 10px;
+            font-size: 7px;
+        }
+
+        .tituloEdadHasta
+        {
+            font-size: 12px;
+            line-height: 15px;
+        }
+
+        .resultado-catidad
+        {
+            line-height: 50px;
+            font-size: 12px;
+        }
+
+        .grafico-mostrar
+        {
+            margin:0 auto;
+            margin-top: 15px;
+            margin-left: -8%;
+            padding: 0;
+            width: 110%;
+            height: 30em;
+        }
+
+        .grafico-mostrar-chart
+        {
+            width: 100%;
+            
+        }
+
+        .resultados-totales
+        {
+            margin: 0 auto;
+            padding-top: 3.33vh;
+            width: 100%;
+            text-align: left;
+            position:relative;
+        }
+
+    }
+
+</style>
+
+<!-- Contenido Simulador-->
+<div class="contenido-entrada">
+    <section class="contenedor-titulo">
+        <div class="titulo-seleccion">
+            <h1>SIMULA TU INVERSIÓN</h1>
+        </div>
+    </section>
+    <section class="contenedor-subtitulo">
+        <div class="titulo-seleccion">
+            <h3>¿QUIERES SABER CÚANTO DEBES INVERTIR MENSUALMENTE PARA ALCANZAR TU RETIRO SOÑADO?</h3>
+        </div>
+    </section>
+    <section class="contenedor-simulador">
+        <div class="contenedor-completo">
+            <!--SIMULADOR-->
+            <div class="grupo-simulador">
+                <div class="input-simulador">
+                    <!--DATOS DE ENTRADA SIMULADOR-->
+                    <div class="datos-simulador">
+                        <!--Primer input cual es tu edad actual-->
+                        <div class="input-dato">
+                            <label class="label-text" for="edad-actual" id="labelEdadActual" style="display: block;">1. ¿Cuántos años tienes?</label>
+                            <input type="text" class="formulario" id="inputEdadActual" aria-describedby="emailHelp" min="1" max="99" value="35" maxlength="2" onkeyup="this.value=NumerosEnteros(this.value);ValidarFormularioDefiniendoTipo('init');" style="display: block;">
+                        </div>
+                        <!--Segundo input cual es la edad de retiro-->
+                        <div class="input-dato">
+                            <label class="label-text" for="edad-actual" id="labelEdadRetiro" style="display: block;">2. ¿A qué edad te quieres retirar?</label>
+                            <input type="text" class="formulario" id="inputEdadRetiro" min="1" max="79" value="60" maxlength="2" onkeyup="this.value=NumerosEnteros(this.value);ValidarFormularioDefiniendoTipo('init');" style="display: block;">
+                        </div>
+                        <!--Tercer input cual es el monto final-->
+                        <div class="input-dato">
+                            <label class="label-text" for="pension-final" id="labelPensionDeseada" style="display: block;">3. Una vez retirado, ¿con cuánto quisieras vivir mensualmente?</label>
+                            <input type="text" class="formulario" id="inputPensionDeseada" aria-describedby="emailHelp" min="100" max="" value="$1,000.00" maxlength="12" onkeyup="this.value=NumerosConDecimal(this.value,'20000.00');ValidarFormularioDefiniendoTipo('cuotaDeseada');" onfocus="this.value=ConvertirANumero(this.value);this.select();" onblur="this.value=ConvertirAMoneda(this.value);" style="display: block;">
+                        </div>
+                        <!--Cuarto input cual es el monto final-->
+                        <div class="input-dato">
+                            <label class="label-text" for="aporte-inicial-retiro" id="labelInicialAporte" style="display: block;">4. ¿Tienes ya un monto ahorrado con el cual quisieras iniciar tu plan de retiro?</label>
+                            <input type="text" class="formulario" id="inputMontoInicialRetiro" aria-describedby="emailHelp" min="0" max="" value="$0.00" maxlength="12" onkeyup="this.value=NumerosConDecimal(this.value,'1000000.00');ValidarFormularioDefiniendoTipo('valorInicial');" onfocus="this.value=ConvertirANumero(this.value);this.select();" onblur="this.value=ConvertirAMoneda(this.value);" style="display: block;">
+                        </div>    
+                        <!--Quinto input cual es el monto final-->
+                        <div class="input-dato">
+                            <label class="label-text-result" for="pension-cuota" id="labelPensionCuota" style="display: block;">Valor que necesitas ahorrar mensualmente para cumplir tu objetivo</label>
+                            <input type="text" class="formulario" id="inputPensionCuota" aria-describedby="emailHelp" min="100" max="" value="$152.47" maxlength="12" onkeyup="this.value=NumerosConDecimal(this.value,'5000.00');ValidarFormularioDefiniendoTipo('cuotaDefinida');" onfocus="this.value=ConvertirANumero(this.value);this.select();" onblur="this.value=ConvertirAMoneda(this.value);" style="display: block;" tabindex="-1">
+                        </div>     
+                        <!--Sexto input cual es la edad de vida-->
+                        <div class="input-dato">
+                            <p class="tituloEdadHasta" id="edadTiempoHastaMuerte" style="display: block;">Simulación hecha en función de la esperanza de vida en el Ecuador de 75 años. En base a los datos ingresados, recibirías una pensión durante <strong>15 años</strong> después de tu retiro.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--GRAFICO SIMULADOR-->
+            <div class="grafico-simulador">
+                <div class="fondo-invertir">
+                    <div class="resultados-cuadrados">
+                        <div class="resultados-cuadrados-informacion1">
+                            <div class="resultado-fondo-alto1">
+                                <div class="resultado-fondo-padd">
+                                    <div class="label-titulo-informacion-fondo">
+                                        <p class="titulo-mostrar">NECESITAS INVERTIR MENSUALMENTE:</p>    
+                                    </div>
+                                    <div class="resultado-titulo-informacion-fondo">
+                                        <p class="resultado-catidad" id="resultado2">$152.47</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resultado-bajo1"></div>
+                        </div>
+                        <div class="resultados-cuadrados-informacion2">
+                            <div class="resultado-fondo-alto2">
+                                <div class="resultado-fondo-padd">
+                                    <div class="label-titulo-informacion-fondo">
+                                        <p class="titulo-mostrar">RENDIMIENTO PROYECTADO:</p>    
+                                    </div>
+                                    <div class="resultado-titulo-informacion-fondo">
+                                        <p class="resultado-catidad" id="interes-retiro" style="color: #19401B; display: block;">0.00%</p>
+                                        <p class="resultado-catidad" id="interes-acumulacion" style="color: #1a997e; display: none;">0.00%</p>
+                                        <p class="resultado-catidad" id="interes-productivo" style="color: #871e6c; display: none;">0.00%</p>
+                                        <p class="resultado-catidad" id="interes-renta" style="color: #742111; display: none;">0.00%</p>
+                                        <p class="resultado-catidad" id="interes-oportunidad" style="color: #b08715; display: none;">0.00%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resultado-bajo2"></div>
+                        </div>
+                        <div class="resultados-cuadrados-informacion3">
+                            <div class="resultado-fondo-alto3">
+                                <div class="resultado-fondo-padd">
+                                    <div class="label-titulo-informacion-fondo">
+                                        <p class="titulo-mostrar" id='titulo-mostrar'>VALOR ALCANZADO A TUS 60 AÑOS:</p>    
+                                    </div>
+                                    <div class="resultado-titulo-informacion-fondo">
+                                        <p class="resultado-catidad" id="resultado">$114,796.41</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resultado-bajo3"></div>
+                        </div>
+                        <div class="resultados-cuadrados-informacion4">
+                            <div class="resultado-fondo-alto4">
+                                <div class="resultado-fondo-padd">
+                                    <div class="label-titulo-informacion-fondo">
+                                        <p class="titulo-mostrar">CUANTO VAS A RECIBIR MENSUALMENTE:</p>    
+                                    </div>
+                                    <div class="resultado-titulo-informacion-fondo">
+                                        <p class="resultado-catidad" id="resultado3">$1,000.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="resultado-bajo4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="resultados-totales">
+                    <div class="grafico-mostrar">
+                        <canvas class="grafico-mostrar-chart" id="myChart" ></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- End main content -->
+
+<!--Script caracteristicas y Gráficos-->
+<script>
+    class Fondo {
+        constructor(nombre, color, interes, mesesSimulacionMinima, mesesSimulacionMaxima) {
+            this.nombre = nombre;
+            this.color = color;
+            this.interes = interes;
+            this.mesesSimulacionMinima = mesesSimulacionMinima;
+            this.mesesSimulacionMaxima = mesesSimulacionMaxima;
+        }
+
+        getNombre(){
+            return this.nombre;
+        }
+
+        getColor(){
+            return this.color;
+        }
+
+        getInteres(){
+            return this.interes;
+        }
+
+        getMesesSimulacionMinima(){
+            return this.mesesSimulacionMinima;
+        }
+        
+        getMesesSimulacionMaxima(){
+            return this.mesesSimulacionMaxima;
+        }
+    }
+
+    /*
+        En esta sección se cambia los valores del fondo ejemplo:
+
+        const Acumulacion = new Fondo("Acumulación", '#1a997e', 7.05, 12, 59);
+
+        1.- Nombre,
+        2.- Color,
+        3.- Interes,
+        4.- Mes inicial donde se debe mostrar en la simulación.
+        5.- Mes Final donde se debe mostrar en la simulación.
+
+        En este caso seria:
+
+        1.- Nombre del fondo:  "Acumulación",
+        2.- Color del fondo: '#1a997e',
+        3.- Tasa de Interes anual:  7.05,
+        4.- Mostrar este fondo si la simulación tiene como valor el mes inicial de: 12 meses.
+        5.- Mostrar este fondo si la simulación tiene como valor el mes final de: 59 meses.
+        Es decir mostrar este fondo si en la simulación esta entre 12-59 meses.
+    */
+    const Acumulacion = new Fondo("Acumulación", '#1a997e', 7.05, 12, 59);
+    const Productivo = new Fondo("Productivo", '#871e6c', 6.05, 6, 11);
+    const Renta = new Fondo("Renta", '#742111', 5.70, 3, 5);
+    const Oportunidad = new Fondo("Oportunidad", '#b08715', 4.60, 1, 2);
+    const Retiro = new Fondo("Mi Retiro", '#19401B', 6.50, 60, 100000);
+
+    const ListaFondos = [Acumulacion,Productivo,Renta,Oportunidad,Retiro];
+
+    function dibujarGrafico(fondo, datosCA, datosCI, labelG){
+        var graficoSimulador = document.getElementById('myChart').getContext('2d');
+        if (window.chart) {
+            window.chart.clear();
+            window.chart.destroy();
+        }
+        window.chart = new Chart(graficoSimulador, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'Capital Acumulado',
+                    borderColor: '#CDCDCD',
+                    backgroundColor: '#CDCDCD',
+                    data: datosCA,
+                    fill: true,
+                    order: 1
+                }, {
+                    label: 'Capital + Rendimiento Acumulado Fondo ' + fondo.getNombre(),
+                    borderColor: fondo.getColor(),
+                    backgroundColor: fondo.getColor(),
+                    data: datosCI,
+                    fill: true,
+                    order: 2
+                },],
+                labels: labelG
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    enabled: true,
+                    //intersect: false,
+                    callbacks: {
+                        label: function(t, d) {
+                            var xLabel = d.datasets[t.datasetIndex].label;
+                            var yLabel = t.yLabel >= 1000 ? '$' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '$' + t.yLabel;
+                            return xLabel + ': ' + yLabel;
+                        }
+                    }
+                },
+                legend: {
+                    "display": true,
+                    "labels":{
+                        fontSize: 10,
+                        fontFamily: "Helvetica",
+                        usePointStyle: true
+                    },
+                },
+                elements: {
+                    point: {
+                        radius: 4
+                    }
+
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: true
+                        },
+                        ticks: {
+                            fontSize: 12,
+                            fontFamily: "Helvetica",
+                            beginAtZero: true,
+                        },
+                        afterFit: function(scale) {
+                            var chartWidth = scale.chart.width;
+                            var new_width=chartWidth;
+                            scale.width = new_width;
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: true
+                        },
+                        ticks: {
+                            stepSize: parseInt((datosCI[datosCI.length-1] - datosCI[0])/4),
+                            fontSize: 14,
+                            fontFamily: "Helvetica",
+                            max: parseInt(datosCI[datosCI.length-1])+1,
+                            min: parseInt(datosCI[0]),
+                            beginAtZero: true,
+                            callback: function (value, index, values, labels) {
+                                if (parseInt(value) >= 1000) {
+                                    return '$' + value.toString().split(/(?=(?:\d{3})+(?:\.|$))/g).join(",");
+                                } else {
+                                    return '$' + value;
+                                }
+                            }
+                        },
+                    }]
+                }
+            },
+            plugins: [{
+                /* Adjust axis labelling font size according to chart size */
+                beforeDraw: function(c) {
+                    var chartHeight = c.chart.height;
+                    var size = chartHeight*2 / 85;
+                    c.scales['y-axis-0'].options.ticks.minor.fontSize = size;
+                    c.scales['x-axis-0'].options.ticks.minor.fontSize = size;
+                }
+            }]
+
+        });
+    }
+</script>
+
+<script>
+    function NumerosConDecimal(string, numeroMaximo) {
+        var out = '';
+        var filtro = '1234567890.';
+        
+        for (var i = 0; i < string.length; i++)
+            if (filtro.indexOf(string.charAt(i)) != -1)
+                out += string.charAt(i);
+
+        if(parseFloat(string)>parseFloat(numeroMaximo)){
+            out = numeroMaximo;
+        }
+        return out;
+    }
+
+    function ConvertirAMoneda(string){
+        return actualizarValoresDouble(parseFloat(string).toFixed(2));
+    }
+
+    function ConvertirANumero(string){
+        var out = '';
+        var filtro = '1234567890.';
+        for (var i = 0; i < string.length; i++)
+            if (filtro.indexOf(string.charAt(i)) != -1)
+                out += string.charAt(i);
+        return out;
+    }
+
+    function NumerosEnteros(string) {
+        var out = '';
+        var filtro = '1234567890';
+        for (var i = 0; i < string.length; i++)
+            if (filtro.indexOf(string.charAt(i)) != -1)
+                out += string.charAt(i);
+        return out;
+    }
+
+    var tipo_de_simulacion = "cuotaDeseada";
+    var auxTipoSimulacion = "cuotaDeseada";
+    function ValidarFormularioDefiniendoTipo(tipo_simulacion){
+        if(tipo_simulacion == 'valorInicial'){
+            auxTipoSimulacion = tipo_de_simulacion;
+            tipo_de_simulacion = tipo_simulacion;
+        }else if(tipo_simulacion == "cuotaDefinida" || tipo_simulacion == "cuotaDeseada"){
+            tipo_de_simulacion = tipo_simulacion;
+        }
+        var valorEdadActual = document.getElementById("inputEdadActual").value;
+        var valorEdadRetiro = document.getElementById("inputEdadRetiro").value;
+        var valorPensionDeseada = ConvertirANumero(document.getElementById("inputPensionDeseada").value);
+        var valorPensionCuota = ConvertirANumero(document.getElementById("inputPensionCuota").value);
+        var valorMontoInicialRetiro = ConvertirANumero(document.getElementById("inputMontoInicialRetiro").value);
+        var resultado1 = document.getElementById("resultado");
+        var resultado2 = document.getElementById("resultado2");
+        var resultado3 = document.getElementById("resultado3");
+        var tituloMostrar = document.getElementById("titulo-mostrar");
+
+        mostrarFondoSeleccionado(Retiro);
+        valorEdadActual = validateEmpty(valorEdadActual);
+        valorEdadRetiro = validateEmpty(valorEdadRetiro);
+        valorMontoInicialRetiro = validateEmpty(valorMontoInicialRetiro);
+
+        nAniusInvirtiendo = parseInt(valorEdadRetiro)-parseInt(valorEdadActual);
+        if(nAniusInvirtiendo <= 0){
+            nAniusInvirtiendo = 1;
+            valorMontoInicialRetiro = 0;
+            valorPensionDeseada = 0;
+        }
+        edadJubilacion = 75 - parseInt(valorEdadRetiro);
+        string1 = "Simulación hecha en función de la esperanza de vida en el Ecuador de 75 años. En base a los datos ingresados, recibirías una pensión durante <strong>";
+        string2 = " años</strong> después de tu retiro.";
+        if(edadJubilacion <= 0){
+            nAniusJubilado = 1;
+            document.getElementById("inputEdadRetiro").value = "74";        
+            document.getElementById("edadTiempoHastaMuerte").innerHTML = string1 + nAniusJubilado.toString() + string2;
+        }
+        else{
+            nAniusJubilado = edadJubilacion;
+            document.getElementById("edadTiempoHastaMuerte").innerHTML = string1 + nAniusJubilado.toString() + string2;
+        }
+        
+        document.getElementById("titulo-mostrar").innerHTML = "VALOR ALCANZADO A TUS " + valorEdadRetiro + " AÑOS:";
+        
+        if (tipo_de_simulacion == "cuotaDefinida") {
+            valorPensionCuota = validateEmpty(valorPensionCuota);
+            [resultadoInversion, aporteMensual] = calculoPensionPorCapital(Retiro, nAniusInvirtiendo, nAniusJubilado, valorMontoInicialRetiro, valorPensionCuota, valorEdadActual)
+            resultado1.innerHTML =  actualizarValoresDouble(resultadoInversion);
+            resultado2.innerHTML = actualizarValoresDouble(valorPensionCuota);
+            resultado3.innerHTML = actualizarValoresDouble(aporteMensual.toFixed(2));
+            document.getElementById("inputPensionDeseada").value = actualizarValoresDouble(aporteMensual.toFixed(2)).toString();   
+        }else if(tipo_de_simulacion == "cuotaDeseada"){
+            valorPensionDeseada = validateEmpty(valorPensionDeseada);
+            [resultadoInversion, aporteMensual] = calculoCapitalParaPension(Retiro, nAniusInvirtiendo, nAniusJubilado, valorMontoInicialRetiro, valorPensionDeseada, valorEdadActual);
+            if(aporteMensual < 0){
+                [resultadoInversion, valorPensionDeseada] = calculoPensionPorCapital(Retiro, nAniusInvirtiendo, nAniusJubilado, valorMontoInicialRetiro, 0, valorEdadActual);
+                aporteMensual = 0;
+            }
+            resultado1.innerHTML = actualizarValoresDouble(resultadoInversion);
+            resultado2.innerHTML = actualizarValoresDouble(aporteMensual.toFixed(2));
+            if(aporteMensual == 0){
+                resultado3.innerHTML = actualizarValoresDouble(valorPensionDeseada.toFixed(2));
+            }
+            else{
+                resultado3.innerHTML = actualizarValoresDouble(valorPensionDeseada);
+            }
+            document.getElementById("inputPensionCuota").value = actualizarValoresDouble(aporteMensual.toFixed(2)).toString();   
+        }
+        else{
+            if (auxTipoSimulacion == "cuotaDefinida") {
+                valorPensionCuota = validateEmpty(valorPensionCuota);
+                [resultadoInversion, aporteMensual] = calculoPensionPorCapital(Retiro, nAniusInvirtiendo, nAniusJubilado, valorMontoInicialRetiro, valorPensionCuota, valorEdadActual)
+                resultado1.innerHTML =  actualizarValoresDouble(resultadoInversion);
+                resultado2.innerHTML = actualizarValoresDouble(valorPensionCuota);
+                resultado3.innerHTML = actualizarValoresDouble(aporteMensual.toFixed(2));
+                document.getElementById("inputPensionDeseada").value = actualizarValoresDouble(aporteMensual.toFixed(2)).toString();   
+            }else{
+                valorPensionDeseada = validateEmpty(valorPensionDeseada);
+                [resultadoInversion, aporteMensual] = calculoCapitalParaPension(Retiro, nAniusInvirtiendo, nAniusJubilado, valorMontoInicialRetiro, valorPensionDeseada, valorEdadActual);
+                if(aporteMensual < 0){
+                    [resultadoInversion, valorPensionDeseada] = calculoPensionPorCapital(Retiro, nAniusInvirtiendo, nAniusJubilado, valorMontoInicialRetiro, 0, valorEdadActual);
+                    aporteMensual = 0;
+                }
+                resultado1.innerHTML = actualizarValoresDouble(resultadoInversion);
+                resultado2.innerHTML = actualizarValoresDouble(aporteMensual.toFixed(2));
+                document.getElementById("inputPensionCuota").value = actualizarValoresDouble(aporteMensual.toFixed(2)).toString();   
+                if(aporteMensual == 0){
+                    resultado3.innerHTML = actualizarValoresDouble(valorPensionDeseada.toFixed(2));
+                    document.getElementById("inputPensionDeseada").value = actualizarValoresDouble(valorPensionDeseada.toFixed(2)).toString();
+                    auxTipoSimulacion = "cuotaDefinida";
+                }
+                else{
+                    resultado3.innerHTML = actualizarValoresDouble(valorPensionDeseada);
+                }
+            }
+            tipo_de_simulacion = auxTipoSimulacion;
+        }
+    }
+
+    function validateEmpty(dato){
+        if(dato.length==0)
+        {
+            return "0";
+        }
+        else{
+            return dato;
+        }
+    }
+    
+    function calculoPensionPorCapital(fondo, nAniusInvirtiendo, nAniusJubilado, aporteInicialS, aporteMensualS, valorEdadActual)
+    {
+        [resultadoInversion, resultadoAhorro] =  calculoInversionDefinida(fondo, nAniusInvirtiendo*12, aporteInicialS, aporteMensualS, valorEdadActual)
+        interesMensual = fondo.getInteres()/1200;
+        nMesesJubilado = nAniusJubilado*12;
+        tasaAnualIncluida = Math.pow((1+interesMensual),-nMesesJubilado);
+        tasaCalculada = (interesMensual/(1-tasaAnualIncluida));
+        pensionTotal = resultadoInversion * tasaCalculada;
+        return [resultadoInversion, pensionTotal]
+    }
+
+    function calculoCapitalParaPension(fondo, nAniusInvirtiendo, nAniusJubilado, aporteInicialS, pensionDeseadaS, valorEdadActual)
+    {
+        pensionDeseada = parseFloat(pensionDeseadaS);
+        interesMensual = fondo.getInteres()/1200;
+        nMesesJubilado = nAniusJubilado*12;
+        tasaAnualIncluida = Math.pow((1+interesMensual),-nMesesJubilado);
+        tasaCalculada = (interesMensual/(1-tasaAnualIncluida));
+        capitalNecesario = pensionDeseada / tasaCalculada;
+        [resultadoInversion, aporteMensual] = calculoMetaDefinida(fondo, nAniusInvirtiendo*12, aporteInicialS, capitalNecesario.toString(), valorEdadActual)
+        return [resultadoInversion, aporteMensual]
+    }
+
+    function calculoMetaDefinida(fondo, nMeses, aporteInicialS, metaDefinidaS, valorEdadActual)
+    {
+        aporteInicial = parseFloat(aporteInicialS);
+        metaDefinida = parseFloat(metaDefinidaS);
+        resultadoMensual =0.00;
+        interesMensual = fondo.getInteres()/12;
+        tasaMensualIncluida = 1+(interesMensual/100);
+        aporteMensual = calculoAportesMensualesPorInteres(tasaMensualIncluida, nMeses, aporteInicial, metaDefinida, interesMensual);
+        [resultadoInversion, resultadoAhorro] =  calculoInversionDefinida(fondo, nMeses, aporteInicialS, aporteMensual.toString(),valorEdadActual)
+        return [resultadoInversion, aporteMensual]
+    }
+
+    function calculoInversionDefinida(fondo, nMeses, aporteInicialS, aporteMensualS, valorEdadActual)
+    {
+        aporteInicial = parseFloat(aporteInicialS);
+        aporteMensual = parseFloat(aporteMensualS);
+        resultadoInversion =0.00;
+        resultadoAhorro =0.00;
+        interesMensual = fondo.getInteres()/12;
+        tasaMensualIncluida = 1+(interesMensual/100);
+        if(nMeses < 12){
+            //Formula del interes compuesto mensual con aporte mensual
+            resultadoInversion = calculoInteresCompuestoMensualAportando(tasaMensualIncluida,nMeses,aporteInicial,aporteMensual,interesMensual);
+
+            resultadoAhorro = aporteInicial + aporteMensual*nMeses;
+            resultadoAhorro = resultadoAhorro.toFixed(2);
+            resultadoInversion = resultadoInversion.toFixed(2);
+            datosCA = [aporteInicial, resultadoAhorro];
+            datosCI = [aporteInicial, resultadoInversion];
+            labelG = ['HOY', nMeses + ' Meses'];
+            dibujarGrafico(fondo,datosCA,datosCI,labelG);
+        }else{
+            anius = nMeses/12;
+            datosCA = [aporteInicial];
+            datosCI = [aporteInicial];
+            labelToShowFirst = valorEdadActual + ' Años'
+            labelG = [labelToShowFirst];
+            for(i=1;i<=anius;i++)
+            {
+                resultadoInversion = calculoInteresCompuestoMensualAportando(tasaMensualIncluida, i*12, aporteInicial, aporteMensual, interesMensual);
+                resultadoAhorro = aporteInicial + aporteMensual*i*12;
+                resultadoAhorro = resultadoAhorro.toFixed(2);
+                labelToShow = i + parseInt(valorEdadActual);
+                if(anius > 15)
+                {
+                    if(anius%2==0)
+                    {
+                        if(i%2==0)
+                        {
+                            labelG.push(labelToShow.toString() + " Años");
+                            datosCI.push(resultadoInversion.toFixed(2));
+                            datosCA.push(resultadoAhorro);    
+                        }
+                    }
+                    else
+                    {
+                        if(i%2!=0)
+                        {
+                            labelG.push(labelToShow.toString() + " Años");
+                            datosCI.push(resultadoInversion.toFixed(2));
+                            datosCA.push(resultadoAhorro);    
+                        }
+                    }
+                }
+                else
+                {
+                    labelG.push(labelToShow.toString() + " Años");
+                    datosCI.push(resultadoInversion.toFixed(2));
+                    datosCA.push(resultadoAhorro);
+                }
+            }
+            resultadoInversion = calculoInteresCompuestoMensualAportando(tasaMensualIncluida, nMeses, aporteInicial, aporteMensual, interesMensual);
+
+            resultadoAhorro = aporteInicial + aporteMensual*nMeses;
+            resultadoAhorro = resultadoAhorro.toFixed(2);
+            resultadoInversion = resultadoInversion.toFixed(2);
+            dibujarGrafico(fondo,datosCA,datosCI,labelG);
+        }
+        return [resultadoInversion, resultadoAhorro];
+    }
+
+    function calculoInteresCompuestoMensualAportando(tasaMensualIncluida, nMeses, aporteInicial, aporteMensual, interesMensual)
+    {
+        tasaTemporal = Math.pow(tasaMensualIncluida,nMeses);
+        return (aporteInicial)*(tasaTemporal) + aporteMensual*(((tasaTemporal-1)/(interesMensual/100))+(tasaTemporal -1));
+    }
+
+    function calculoAportesMensualesPorInteres(tasaMensualIncluida, nMeses, aporteInicial, metaDefinida, interesMensual)
+    {
+        tasaTemporal = Math.pow(tasaMensualIncluida,nMeses);
+        capitalIncluido = metaDefinida - (aporteInicial)*(tasaTemporal);
+        tasaMensualIncluida = (((tasaTemporal-1)/(interesMensual/100))+(tasaTemporal -1));
+        return capitalIncluido/tasaMensualIncluida;
+    }
+
+    function seleccionDeFondo(tiempoMeses){
+        fondoInvertir = Retiro;
+        for(i=0;i<ListaFondos.length;i++)
+        {
+            fondo = ListaFondos[i];
+            if( (tiempoMeses >= fondo.getMesesSimulacionMinima()) && (tiempoMeses<=fondo.getMesesSimulacionMaxima())){
+                fondoInvertir = fondo;
+            }
+        }
+        return fondoInvertir;
+    }
+
+    function mostrarFondoSeleccionado(fondo){
+        var interesRetiro = document.getElementById("interes-retiro");
+        var interesAcumulacion = document.getElementById("interes-acumulacion");
+        var interesProductivo = document.getElementById("interes-productivo");
+        var interesRenta = document.getElementById("interes-renta");
+        var interesOportunidad = document.getElementById("interes-oportunidad");
+        if (fondo == Acumulacion) {
+            interesRetiro.style.display = "none";
+            interesAcumulacion.style.display = "block";
+            interesProductivo.style.display = "none";
+            interesRenta.style.display = "none";
+            interesOportunidad.style.display = "none";
+        } else if (fondo == Productivo) {
+            interesRetiro.style.display = "none";
+            interesAcumulacion.style.display = "none";
+            interesProductivo.style.display = "block";
+            interesRenta.style.display = "none";
+            interesOportunidad.style.display = "none";
+        } else if (fondo == Renta) {
+            interesRetiro.style.display = "none";
+            interesAcumulacion.style.display = "none";
+            interesProductivo.style.display = "none";
+            interesRenta.style.display = "block";
+            interesOportunidad.style.display = "none";
+        } else if (fondo == Oportunidad) {
+            interesRetiro.style.display = "none";
+            interesAcumulacion.style.display = "none";
+            interesProductivo.style.display = "none";
+            interesRenta.style.display = "none";
+            interesOportunidad.style.display = "block";
+        } else{
+            interesRetiro.style.display = "block";
+            interesAcumulacion.style.display = "none";
+            interesProductivo.style.display = "none";
+            interesRenta.style.display = "none";
+            interesOportunidad.style.display = "none";
+        }
+    }
+
+    function actualizarValores(){
+        var interesRetiro = document.getElementById("interes-retiro");
+        var interesAcumulacion = document.getElementById("interes-acumulacion");
+        var interesProductivo = document.getElementById("interes-productivo");
+        var interesRenta = document.getElementById("interes-renta");
+        var interesOportunidad = document.getElementById("interes-oportunidad");
+        interesRetiro.innerHTML = Retiro.getInteres().toFixed(2) + "%";
+        interesAcumulacion.innerHTML = Acumulacion.getInteres().toFixed(2) + "%";
+        interesProductivo.innerHTML = Productivo.getInteres().toFixed(2) + "%";
+        interesRenta.innerHTML = Renta.getInteres().toFixed(2) + "%";
+        interesOportunidad.innerHTML = Oportunidad.getInteres().toFixed(2) + "%";
+    }
+
+    function actualizarValoresDouble(value) {
+        if (parseInt(value) >= 1000) {
+            return '$' + value.toString().split(/(?=(?:\d{3})+(?:\.|$))/g).join(",");
+        } else {
+            return '$' + value;
+        }
+    }
+
+    actualizarValores();
+    ValidarFormularioDefiniendoTipo("cuotaDeseada");
+</script>
